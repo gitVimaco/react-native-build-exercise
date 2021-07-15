@@ -17,12 +17,12 @@ jobs:
         run: cd ios && pod install
       - name: Build app
         run: |       
-          xcodebuild -workspace myapp.xcworkspace -scheme myapp archive -archivePath myapp.xcarchive -allowProvisioningUpdates
-          xcodebuild -exportArchive -archivePath ./myapp.xcarchive -exportPath . -exportOptionsPlist myapp/Info.plist
-          mv myapp.ipa ../myapp.ipa
+          xcodebuild -workspace reactnativebuildexercise.xcworkspace -scheme reactnativebuildexercise archive -archivePath reactnativebuildexercise.xcarchive -allowProvisioningUpdates
+          xcodebuild -exportArchive -archivePath ./reactnativebuildexercise.xcarchive -exportPath . -exportOptionsPlist reactnativebuildexercise/Info.plist
+          mv reactnativebuildexercise.ipa ../reactnativebuildexercise.ipa
       - name: Upload Artifact
         uses: actions/upload-artifact@v1
         with:
-          name: myapp.ipa
+          name: reactnativebuildexercise.ipa
           path: ios/build/
 
