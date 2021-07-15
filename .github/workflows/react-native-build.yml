@@ -1,0 +1,15 @@
+on: pull_request
+
+jobs:
+  build-ios:
+    runs-on: macos-latest
+
+    steps:
+      - name: Get the code
+        uses: actions/checkout@v2
+      - name: Install node
+        uses: actions/setup-node@v1
+      - name: Install React Native CLI
+        run: yarn global add react-native-cli
+      - name: Install yarn dependencies
+        run: yarn install
