@@ -14,7 +14,15 @@ jobs:
       - name: Install project node modules
         run: npm install
       - name: Install Pod dependencies
-        run: cd ios && pod Install
+        run: cd ios && pod install
       - name: Build app
-        run: echo Hello
+        run: |       
+          xcodebuild -workspace myapp.xcworkspace -scheme myapp archive -archivePath myapp.xcarchive -allowProvisioningUpdates
+          xcodebuild -exportArchive -archivePath ./myapp.xcarchive -exportPath . -exportOptionsPlist myapp/Info.plist
+          mv myapp.ipa ../myapp.ipa
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: myapp.ipa
+          path: ios/build/
 
