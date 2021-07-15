@@ -16,7 +16,8 @@ jobs:
       - name: Install Pod dependencies
         run: cd ios && pod install
       - name: Build app
-        run: |       
+        run: |
+          cd ios
           xcodebuild -workspace reactnativebuildexercise.xcworkspace -scheme reactnativebuildexercise archive -archivePath reactnativebuildexercise.xcarchive -allowProvisioningUpdates
           xcodebuild -exportArchive -archivePath ./reactnativebuildexercise.xcarchive -exportPath . -exportOptionsPlist reactnativebuildexercise/Info.plist
           mv reactnativebuildexercise.ipa ../reactnativebuildexercise.ipa
