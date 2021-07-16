@@ -16,14 +16,16 @@ jobs:
       - name: Install Pod dependencies
         run: cd ios && pod install
       - name: Build app
-        run: |
-          cd ios
-          xcodebuild -workspace reactnativebuildexercise.xcworkspace -scheme reactnativebuildexercise archive -archivePath reactnativebuildexercise.xcarchive -allowProvisioningUpdates
-          xcodebuild -exportArchive -archivePath ./reactnativebuildexercise.xcarchive -exportPath . -exportOptionsPlist reactnativebuildexercise/Info.plist
-          mv reactnativebuildexercise.ipa ../reactnativebuildexercise.ipa
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v1
+        uses: yukiarrr/ios-build-action@v1.4.0
         with:
-          name: reactnativebuildexercise.ipa
-          path: ios/build/
+          project-path: ./ios/reactnativebuildexercise.xcodeproj
+          p12-base64: ${{ secrets.P12_BASE64 }}
+          certificate-password: ${{ secrets.P12_PWD }}
+          mobileprovision-base64: ${{ secrets.PROV_PROFILE_B64 }}
+          code-signing-identity: ${{ secrets.CODE_SIGNING_IDENTITY }}
+          team-id: ${{ secrets.TEAM_ID }}
+          export-method: enterprise
+          configuration: Release
+          workspace-path: ./ios/reactnativebuildexercise.xcworkspace
+          output-path: ./ios/build/reactnativebuildexercise.ipa
 
