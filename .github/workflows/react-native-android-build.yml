@@ -5,7 +5,7 @@ on:
 jobs:
   build-android:
     runs-on: ubuntu-latest
-
+    
     steps:
       - name: Get the code
         uses: actions/checkout@v2
@@ -27,6 +27,10 @@ jobs:
       - name: Build Android Release
         run: |
           cd android && ./gradlew bundleRelease
+        env:
+          ANDROID_STORE_PASSWORD: ${{ secrets.ANDROID_STORE_PASSWORD }}
+          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
         # Upload to Artifact
       - name: Upload Artifact
         uses: actions/upload-artifact@v1
