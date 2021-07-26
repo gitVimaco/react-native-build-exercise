@@ -1,0 +1,27 @@
+on: 
+  - pull_request
+  - workflow_dispatch
+
+jobs:
+  build-ios:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Get the code
+        uses: actions/checkout@v2
+      - name: Install node
+        uses: actions/setup-node@v1
+      - name: Install project node modules
+        run: npm install
+      - name: Make Gradlew Executable
+        run: cd android && chmod +x ./gradlew
+        # Build Command
+      - name: Build Android Release
+        run: |
+          cd android && ./gradlew assembleRelease
+        # Upload to Artifact
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: app-release.apk
+          path: android/app/build/outputs/apk/release/
