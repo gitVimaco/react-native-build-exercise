@@ -3,7 +3,7 @@ on:
   - workflow_dispatch
 
 jobs:
-  build-ios:
+  build-android:
     runs-on: ubuntu-latest
 
     steps:
@@ -18,10 +18,10 @@ jobs:
         # Build Command
       - name: Build Android Release
         run: |
-          cd android && ./gradlew assembleRelease
+          cd android && ./gradlew bundleRelease
         # Upload to Artifact
       - name: Upload Artifact
         uses: actions/upload-artifact@v1
         with:
-          name: app-release.apk
-          path: android/app/build/outputs/apk/release/
+          name: app-release.aab
+          path: android/app/build/outputs/aab/release/
